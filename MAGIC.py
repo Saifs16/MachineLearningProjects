@@ -1,12 +1,14 @@
-#Progress "Machine Learning for Everybody" 55:00Min
+#Progress "Machine Learning for Everybody" 1:40:00
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from imblearn.over_sampling import RandomOverSampler
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report
-
+import matplotlib.pyplot as plt #Plotting and graphing
+from sklearn.preprocessing import StandardScaler #Helps KNN interpret the database by standardization
+from imblearn.over_sampling import RandomOverSampler #Fixing imbalances within the data samples
+from sklearn.neighbors import KNeighborsClassifier #K-nearest  ALgorithm
+from sklearn.metrics import classification_report #Reporting the accuracy
+from sklearn.naive_bayes import GaussianNB # Naive Bayes Algorithm
+from sklearn.linear_model import LogisticRegression #Logistic Regression Algorithm
+from sklearn.svm import SVC # Support Vector Machine ALgorithm
 from sklearn.metrics import accuracy_score # To test the accuracy of the ML
 
 #Naming the columns
@@ -74,17 +76,46 @@ train, x_train, y_train = scale_dataset(train, oversample=True)
 valid, x_valid, y_valid = scale_dataset(valid, oversample=False)  
 test, x_test, y_test = scale_dataset(test, oversample=False)
 
+"""                 #Uncomment for K-nearest Neighbors algorithm  
 # The below is the K-nearest Neighbor method to achieve the Supervised Machine Learning Output
 knn_model = KNeighborsClassifier(n_neighbors=1)
 #The 'fit' takes all the vaules x-axis and y-axis of 'train' and trains its self  
 knn_model.fit(x_train,y_train)
 # here we make the ML predict the results of 
 y_pred = knn_model.predict(x_test) 
-print(y_pred)
-print(y_test) 
-
+# Printing the machine learning result
+print("This is using the K-nearest Neighbors algorithm\n")
+#print(y_pred)
+# Printing the actual vaules for comparision
+#print(y_test) 
+"""
+# Prints accuracy report of the ML system
+#print(classification_report(y_test, y_pred))
 """ 
-Below code is to test the accuracy
+Below code is to test the accuracy | This is my own and may conflict with other parts of the code
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
+"""
+"""                 #Uncomment for Naive Bayes Algorithm
+# Training the ML using the Naive Bayes algorithms
+nb_model = GaussianNB() # Gaussian distribution known as Normal distribution 
+nb = nb_model.fit(x_train, y_train)
+# ML making prediction
+y_pred = nb_model.predict(x_test)
+# Accuracy report for the ML trained using Naive Bayes algorithm
+print("This is using the Naive Bayes algorithm\n"classification_report(y_test, y_pred))
+"""
+
+"""                 #Uncomment for Logistic Regression Algorithm
+lg_model = LogisticRegression()
+lg_model = lg_model.fit(x_train,y_train)
+y_pred = lg_model.predict(x_test)
+print("This is using the Logistic Regression algorithm\n"classification_report(y_test, y_pred))
+"""
+
+"""                 #Uncomment for Support Vector Algorithm
+svm_model = SVC()
+svm_model = svm_model.fit(x_train, y_train)
+y_pred = svm_model.predict(x_test)
+print("This is using the Support Vector Machine algorithm\n"+classification_report(y_test,y_pred))
 """
